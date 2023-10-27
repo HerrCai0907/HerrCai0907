@@ -24,7 +24,7 @@ export async function fetchFromGithub() {
 
   console.log(`fetch ${request}`);
 
-  for (let pageIndex = 1; ; pageIndex++) {
+  for (let pageIndex = 0; ; pageIndex++) {
     const {
       data: { items },
     } = await octokit.request(request, {

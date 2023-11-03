@@ -1,5 +1,4 @@
 import { writeFileSync } from "fs";
-import { record } from "./recorder.js";
 
 function drawItem(topItem, index) {
   return `
@@ -23,7 +22,7 @@ export function draw(topInfo) {
   const len = topInfo.length;
   const width = len * 40 + 85;
 
-  const svg = `<!--${JSON.stringify(record)}-->
+  const svg = `
 <svg width="300" height="${width}" viewBox="0 0 300 ${width}" fill="none" xmlns="http://www.w3.org/2000/svg" role="img"
 aria-labelledby="descId">
 <title id="titleId"></title>

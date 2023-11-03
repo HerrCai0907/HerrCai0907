@@ -1,18 +1,39 @@
 import { Octokit } from "@octokit/core";
-import { statistic } from "./statistic.js";
-import { record, history } from "./recorder.js";
 import { env } from "process";
+import languages from "linguist-languages";
+import { basename, extname } from "path";
 
-const orgs = ["assemblyscript", "Schleifner", "nodejs", "WebAssembly", "MaaAssistantArknights"];
+const orgs = ["HerrCai0907", "Schleifner", "assemblyscript", "nodejs", "WebAssembly", "MaaAssistantArknights"];
 const repos = ["llvm/llvm-project"];
 
 function prepareQuery() {
   const projectRanges = orgs.map((v) => `org:${v}`).join(" ") + " " + repos.map((v) => `repo:${v}`).join(" ");
+  const startDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+  return encodeURIComponent(`author:HerrCai0907 ${projectRanges} committer-date:>${startDate.toISOString()}`);
+}
 
-  const dateRange = history.startDate === undefined ? "" : `committer-date:>${history.startDate}`;
-  record.startDate = new Date(Date.now()).toISOString();
+const result = {};
 
-  return encodeURIComponent(`author:HerrCai0907 ${projectRanges} ${dateRange}`);
+function statistic(file, lines) {
+  const ext = extname(file);
+  (() => {
+    for (let lang of Object.keys(languages)) {
+      if (languages[lang].filenames === basename(file)) {
+        result[lang] = result[lang] ?? 0;
+        result[lang] += lines;
+        console.log(`add '${lang}' ${lines} lines due to '${file}'`);
+        return;
+      }
+    }
+    for (let lang of Object.keys(languages)) {
+      if (languages[lang].extensions?.includes(ext)) {
+        result[lang] = result[lang] ?? 0;
+        result[lang] += lines;
+        console.log(`add '${lang}' ${lines} lines due to '${file}'`);
+        return;
+      }
+    }
+  })();
 }
 
 export async function fetchFromGithub() {
@@ -46,4 +67,5 @@ export async function fetchFromGithub() {
       })
     );
   }
+  return result;
 }

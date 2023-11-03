@@ -1,6 +1,11 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: Build
 on:
+  push:
+    branches:
+      - dev
+  schedule:
+    - cron: "0 2 * * *"
   workflow_dispatch:
 
 jobs:
@@ -9,8 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: dev
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: "20"
       - run: npm ci
@@ -35,4 +42,4 @@ jobs:
 
       - name: "Push changes to GitHub"
         run: |
-          git add ./fetcher/lang.svg && git commit -m "update" && git push -u origin main || echo "ignore push"
+          git add ./fetcher/lang.svg && git commit -m "update" && git push --force -u origin HEAD:main

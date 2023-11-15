@@ -5,7 +5,7 @@ import { basename, extname } from "path";
 
 const orgs = ["HerrCai0907", "Schleifner", "assemblyscript", "nodejs", "WebAssembly", "MaaAssistantArknights"];
 const repos = ["llvm/llvm-project"];
-const ignoreLanguages = ["Webassembly"];
+const ignoreLanguages = ["WebAssembly"];
 
 function prepareQuery() {
   const projectRanges = orgs.map((v) => `org:${v}`).join(" ") + " " + repos.map((v) => `repo:${v}`).join(" ");

@@ -5,7 +5,7 @@ import { basename, extname } from "path";
 
 const orgs = ["HerrCai0907", "Schleifner", "assemblyscript", "nodejs", "WebAssembly", "MaaAssistantArknights"];
 const repos = ["llvm/llvm-project"];
-const ignoreLanguage = ["Webassembly"];
+const ignoreLanguages = ["Webassembly"];
 
 function prepareQuery() {
   const projectRanges = orgs.map((v) => `org:${v}`).join(" ") + " " + repos.map((v) => `repo:${v}`).join(" ");
@@ -19,9 +19,6 @@ function statistic(file, lines) {
   const ext = extname(file);
   (() => {
     for (let lang of Object.keys(languages)) {
-      if (ignoreLanguage.includes(lang)) {
-        continue;
-      }
       if (languages[lang].filenames.includes(basename(file))) {
         result[lang] = result[lang] ?? 0;
         result[lang] += lines;
@@ -30,9 +27,6 @@ function statistic(file, lines) {
       }
     }
     for (let lang of Object.keys(languages)) {
-      if (ignoreLanguage.includes(lang)) {
-        continue;
-      }
       if (languages[lang].extensions?.includes(ext)) {
         result[lang] = result[lang] ?? 0;
         result[lang] += lines;
@@ -73,6 +67,9 @@ export async function fetchFromGithub() {
         });
       })
     );
+  }
+  for (let lang of ignoreLanguages) {
+    result[lang] = undefined;
   }
   return result;
 }

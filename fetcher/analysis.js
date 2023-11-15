@@ -7,6 +7,9 @@ export function top(info, num) {
     const line = info[lang];
     sum += line;
   }
+
+  console.log("statistic result :\n", info);
+
   for (const lang in info) {
     const line = info[lang];
     data.push({ lang, rate: (line / sum) * 100, color: languages[lang].color });

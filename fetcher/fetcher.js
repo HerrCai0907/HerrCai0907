@@ -69,7 +69,7 @@ export async function fetchFromGithub() {
     );
   }
   for (let lang of ignoreLanguages) {
-    result[lang] = undefined;
+    delete result[lang];
   }
   return result;
 }

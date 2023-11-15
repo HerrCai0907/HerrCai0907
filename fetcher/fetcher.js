@@ -19,7 +19,7 @@ function statistic(file, lines) {
   const ext = extname(file);
   (() => {
     for (let lang of Object.keys(languages)) {
-      if (languages[lang].filenames.includes(basename(file))) {
+      if (languages[lang].filenames?.includes(basename(file))) {
         result[lang] = result[lang] ?? 0;
         result[lang] += lines;
         console.log(`add '${lang}' ${lines} lines due to '${file}'`);

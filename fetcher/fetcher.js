@@ -19,6 +19,7 @@ function statistic(file, lines) {
   const ext = extname(file);
   (() => {
     for (let lang of Object.keys(languages)) {
+      if (!languages[lang].color) continue;
       if (languages[lang].filenames?.includes(basename(file))) {
         result[lang] = result[lang] ?? 0;
         result[lang] += lines;
@@ -27,6 +28,7 @@ function statistic(file, lines) {
       }
     }
     for (let lang of Object.keys(languages)) {
+      if (!languages[lang].color) continue;
       if (languages[lang].extensions?.includes(ext)) {
         result[lang] = result[lang] ?? 0;
         result[lang] += lines;

@@ -5,7 +5,7 @@
 - I am an Automotive Software Development Engineer in China 🇨🇳.
 - I use C++ and TypeScript as my major development languages.
 - I am interested in runtime, compiler and language tooling related development.
-  - [Assemblyscript](https://www.assemblyscript.org/)
+  - [Assemblyscript](https://github.com/AssemblyScript/assemblyscript)
   - [LLVM](https://github.com/llvm/llvm-project)
 
 ## My Technical Stack

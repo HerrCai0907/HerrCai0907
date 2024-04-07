@@ -42,4 +42,6 @@ jobs:
 
       - name: "Push changes to GitHub"
         run: |
-          git add ./fetcher/lang.svg && git commit -m "update" && git push --force -u origin HEAD:main
+          git add ./fetcher/lang.svg
+          git commit --amend -m "update"
+          git push --force -u origin HEAD:main

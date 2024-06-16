@@ -3,7 +3,7 @@ import { env } from "process";
 import languages from "linguist-languages";
 import { basename, extname } from "path";
 
-const ignoreLanguages = ["WebAssembly", "json"];
+const ignoreLanguages = ["WebAssembly", "JSON"];
 
 function prepareQuery() {
   const startDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);

@@ -60,7 +60,6 @@ export async function fetchFromGithub() {
     }
     await Promise.all(
       items.map(async (item) => {
-        if (item.url.includes("HerrCai0907") {}
         console.log(`fetch ${item.url}`);
         const { data } = await octokit.request(item.url);
         data.files.forEach((file) => {

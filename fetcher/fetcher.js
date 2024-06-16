@@ -3,14 +3,12 @@ import { env } from "process";
 import languages from "linguist-languages";
 import { basename, extname } from "path";
 
-const orgs = ["HerrCai0907", "Schleifner", "assemblyscript", "nodejs", "WebAssembly", "MaaAssistantArknights"];
-const repos = ["llvm/llvm-project"];
-const ignoreLanguages = ["WebAssembly"];
+const ignoreLanguages = ["WebAssembly", "json"];
 
 function prepareQuery() {
   const projectRanges = orgs.map((v) => `org:${v}`).join(" ") + " " + repos.map((v) => `repo:${v}`).join(" ");
   const startDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-  return encodeURIComponent(`author:HerrCai0907 ${projectRanges} committer-date:>${startDate.toISOString()}`);
+  return encodeURIComponent(`fork:true author:HerrCai0907 ${projectRanges} -repo:HerrCai0907/HerrCai0907 committer-date:>${startDate.toISOString()}`);
 }
 
 const result = {};
@@ -62,6 +60,7 @@ export async function fetchFromGithub() {
     }
     await Promise.all(
       items.map(async (item) => {
+        if (item.url.includes("HerrCai0907") {}
         console.log(`fetch ${item.url}`);
         const { data } = await octokit.request(item.url);
         data.files.forEach((file) => {

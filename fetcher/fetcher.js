@@ -6,9 +6,8 @@ import { basename, extname } from "path";
 const ignoreLanguages = ["WebAssembly", "json"];
 
 function prepareQuery() {
-  const projectRanges = orgs.map((v) => `org:${v}`).join(" ") + " " + repos.map((v) => `repo:${v}`).join(" ");
   const startDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
-  return encodeURIComponent(`author:HerrCai0907 ${projectRanges} -repo:HerrCai0907/HerrCai0907 committer-date:>${startDate.toISOString()}`);
+  return encodeURIComponent(`author:HerrCai0907 -repo:HerrCai0907/HerrCai0907 committer-date:>${startDate.toISOString()}`);
 }
 
 const result = {};

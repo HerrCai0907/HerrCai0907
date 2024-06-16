@@ -44,6 +44,7 @@ export async function fetchFromGithub() {
   const request = `GET /search/commits?q=${prepareQuery()}`;
 
   console.log(`fetch ${request}`);
+  const hashes = new Set();
 
   for (let pageIndex = 0; ; pageIndex++) {
     const {
@@ -59,6 +60,10 @@ export async function fetchFromGithub() {
     }
     await Promise.all(
       items.map(async (item) => {
+        if (hashes.has(item.sha)) {
+          return;
+        }
+        hashes.add(item.sha);
         console.log(`fetch ${item.url}`);
         const { data } = await octokit.request(item.url);
         data.files.forEach((file) => {

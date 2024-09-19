@@ -11,28 +11,30 @@ function prepareQuery() {
 }
 
 const result = {};
+const languageOverwritten = {
+  "GCC Machine Description": "Markdown",
+}
 
 function statistic(file, lines) {
   const ext = extname(file);
   (() => {
-    for (let lang of Object.keys(languages)) {
-      if (!languages[lang].color) continue;
-      if (languages[lang].filenames?.includes(basename(file))) {
-        result[lang] = result[lang] ?? 0;
-        result[lang] += lines;
-        console.log(`add '${lang}' ${lines} lines due to '${file}'`);
-        return;
-      }
-    }
+    const fileLanguage = null;
     for (let lang of Object.keys(languages)) {
       if (!languages[lang].color) continue;
       if (languages[lang].extensions?.includes(ext)) {
-        result[lang] = result[lang] ?? 0;
-        result[lang] += lines;
-        console.log(`add '${lang}' ${lines} lines due to '${file}'`);
-        return;
+        if (fileLanguage == null || languageOverwritten[fileLanguage] == lang) {
+          fileLanguage = lang;
+        }
+      }
+      if (languages[lang].filenames?.includes(basename(file))) {
+        if (fileLanguage == null || languageOverwritten[fileLanguage] == lang) {
+          fileLanguage = lang;
+        }
       }
     }
+    result[fileLanguage] = result[fileLanguage] ?? 0;
+    result[fileLanguage] += lines;
+    console.log(`add '${fileLanguage}' ${lines} lines due to '${file}'`);
   })();
 }
 

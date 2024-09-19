@@ -18,7 +18,7 @@ const languageOverwritten = {
 function statistic(file, lines) {
   const ext = extname(file);
   (() => {
-    const fileLanguage = null;
+    let fileLanguage = null;
     for (let lang of Object.keys(languages)) {
       if (!languages[lang].color) continue;
       if (languages[lang].extensions?.includes(ext)) {

@@ -32,9 +32,11 @@ function statistic(file, lines) {
         }
       }
     }
-    result[fileLanguage] = result[fileLanguage] ?? 0;
-    result[fileLanguage] += lines;
-    console.log(`add '${fileLanguage}' ${lines} lines due to '${file}'`);
+    if (fileLanguage != null) {
+      result[fileLanguage] = result[fileLanguage] ?? 0;
+      result[fileLanguage] += lines;
+      console.log(`add '${fileLanguage}' ${lines} lines due to '${file}'`);
+    }
   })();
 }
 

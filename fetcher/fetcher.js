@@ -6,7 +6,7 @@ import { basename, extname } from "path";
 const ignoreLanguages = ["WebAssembly", "JSON"];
 
 function prepareQuery() {
-  const startDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+  const startDate = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
   return encodeURIComponent(`author:HerrCai0907 -repo:HerrCai0907/HerrCai0907 committer-date:>${startDate.toISOString()}`);
 }
 

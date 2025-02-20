@@ -15,9 +15,14 @@ const languageOverwritten = {
   "GCC Machine Description": "Markdown",
 }
 
+const ignoredExtensions = [
+  ".txt",
+]
+
 function statistic(file, lines) {
   const ext = extname(file);
   (() => {
+    if (ignoredExtensions.includes(ext) return;
     let fileLanguage = null;
     for (let lang of Object.keys(languages)) {
       if (!languages[lang].color) continue;

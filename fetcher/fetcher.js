@@ -22,7 +22,7 @@ const ignoredExtensions = [
 function statistic(file, lines) {
   const ext = extname(file);
   (() => {
-    if (ignoredExtensions.includes(ext) return;
+    if (ignoredExtensions.includes(ext)) return;
     let fileLanguage = null;
     for (let lang of Object.keys(languages)) {
       if (!languages[lang].color) continue;

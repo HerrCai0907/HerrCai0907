@@ -1,0 +1,47 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Build
+on:
+  push:
+    branches:
+      - dev
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: "update contribution"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+      - run: npm ci
+
+      - name: Set up repository
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git remote set-url origin "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch origin
+          if [ -z "$GITHUB_HEAD_REF" ]; then
+            # If not a PR, undo detached head
+            git checkout "${GITHUB_REF:11}"
+          fi
+
+      - name: "Generate SVG"
+        run: node fetcher
+        env:
+          TOKEN: ${{ secrets.FETCH_GITHUB_TOKEN }}
+
+      - name: "Push changes to GitHub"
+        run: |
+          git add ./fetcher/lang.svg
+          git commit --amend -m "update"
+          git push --force -u origin HEAD:main

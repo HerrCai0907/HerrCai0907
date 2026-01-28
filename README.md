@@ -9,7 +9,7 @@
 ### Expreience
 
 - maintainer of [Assemblyscript](https://github.com/AssemblyScript/assemblyscript) (2023.09 - now)
-  - [next generation assemblyscript with more features and better performance](https://github.com/wasm-ecosystem/warpo)
+  - [next generation assemblyscript](https://github.com/wasm-ecosystem/warpo) with more features and better performance
 - maintainer of [clang-tidy](https://github.com/llvm/llvm-project) in LLVM-projects (2024.11 - now)
 - [AOT compiler for WASM](https://github.com/wasm-ecosystem/wasm-compiler)
   - compile and execute WASM module in resource limited embedded device

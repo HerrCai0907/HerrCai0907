@@ -2,7 +2,7 @@
 
 ## About me
 
-- I am an Compiler Development in China 🇨🇳.
+- I am an Compiler Developer in China 🇨🇳.
 - I use C++ / TypeScript / Rust as my major development languages.
 - I am interested in runtime, compiler and language tooling related development.
 
